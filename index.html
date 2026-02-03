@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Office Appreciation Day 💝</title>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ffe4e6, #fff1f2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .card {
+    background: white;
+    padding: 30px;
+    width: 420px;
+    border-radius: 18px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+  }
+
+  h1 {
+    text-align: center;
+    color: #be123c;
+  }
+
+  .instructions {
+    background: #fff1f2;
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  textarea, input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    border-radius: 10px;
+    border: 1px solid #f9a8d4;
+  }
+
+  button {
+    width: 100%;
+    margin-top: 18px;
+    padding: 12px;
+    background: #e11d48;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .thank-you {
+    display: none;
+    text-align: center;
+    color: #be123c;
+    font-size: 16px;
+  }
+</style>
+</head>
+
+<body>
+<div class="card">
+  <h1>💌 Office Appreciation Day</h1>
+
+  <div class="instructions">
+    This is a small office appreciation activity for our community ❤️  
+    <br><br>
+    Please write an appreciation letter for a colleague from the office.
+    Your message will be collected by the organizers and shared during the event.
+    <br><br>
+    <em>Your message will not be shown after submission.</em>
+  </div>
+
+  <div id="form">
+    <textarea id="message" rows="4"
+      placeholder="Write your appreciation message..."></textarea>
+    <input id="to" placeholder="To (Colleague's Name)">
+    <button onclick="sendMessage()">Submit Appreciation 💖</button>
+  </div>
+
+  <div class="thank-you" id="thankYou">
+    💕 Thank you for spreading the love!
+  </div>
+</div>
+
+<script>
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxrBlWYjOfuTMr4daVHZ9E3UArb6ucX39x6XRGyGys9VKSt6jeaMLfPjxQJxt9nJ0C0/exec";
+
+  function sendMessage() {
+    const message = document.getElementById("message").value;
+    const to = document.getElementById("to").value;
+
+    if (!message || !to) {
+      alert("Please complete all fields 💕");
+      return;
+    }
+
+    fetch(SCRIPT_URL, {
+      method: "POST",
+      body: JSON.stringify({ message, to })
+    })
+    .then(() => {
+      document.getElementById("form").style.display = "none";
+      document.getElementById("thankYou").style.display = "block";
+    })
+    .catch(() => {
+      alert("Something went wrong. Please try again.");
+    });
+  }
+</script>
+</body>
+</html>
